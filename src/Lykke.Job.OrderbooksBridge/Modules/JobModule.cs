@@ -63,8 +63,9 @@ namespace Lykke.Job.OrderbooksBridge.Modules
                         _settings.BatchPeriod,
                         logFactory,
                         new DbContextExtFactory(),
-                        new DbEntityMapper(),
-                        new DbOrderbooksProcessor());
+                        new DbEntityMapper()/*,
+                        new DbOrderbooksProcessor()*/ //not using it cause db items are fetched for search too slow without indexes
+                        );
                     return repository;
                 })
                 .AsSelf()
