@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using System.Threading.Tasks;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Common.Log;
 using JetBrains.Annotations;
@@ -10,6 +12,8 @@ using Lykke.Common.Log;
 using Lykke.Job.OrderbooksBridge.Settings;
 using Lykke.Job.OrderbooksBridge.Modules;
 using Lykke.Logs;
+using Lykke.Logs.Loggers.LykkeSlack;
+using Lykke.Sdk;
 using Lykke.SettingsReader;
 using Lykke.MonitoringServiceApiCaller;
 using Microsoft.AspNetCore.Builder;
@@ -17,9 +21,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Threading.Tasks;
-using Lykke.Sdk;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Lykke.Job.OrderbooksBridge
 {
@@ -79,7 +81,14 @@ namespace Lykke.Job.OrderbooksBridge
                     settingsManager.ConnectionString(s => s.OrderbooksBridgeJob.Db.LogsConnString),
                     "OrderbooksBridgeJobLog",
                     appSettings.SlackNotifications.AzureQueue.ConnectionString,
-                    appSettings.SlackNotifications.AzureQueue.QueueName);
+                    appSettings.SlackNotifications.AzureQueue.QueueName,
+                    logging => {
+                        logging.AddAdditionalSlackChannel("Bridges", options =>
+                        {
+                            options.MinLogLevel = LogLevel.Warning;
+                            options.SpamGuard.DisableGuarding();
+                        });
+                    });
 
                 var builder = new ContainerBuilder();
                 builder.Populate(services);
