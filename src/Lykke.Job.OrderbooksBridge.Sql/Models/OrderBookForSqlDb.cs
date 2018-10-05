@@ -2,6 +2,7 @@
 using System.Linq;
 using Lykke.Job.OrderbooksBridge.Domain;
 using Lykke.Service.DataBridge.Data.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lykke.Job.OrderbooksBridge.Sql.Models
 {
@@ -36,11 +37,10 @@ namespace Lykke.Job.OrderbooksBridge.Sql.Models
             };
         }
 
-        public override bool Update(object newVersion)
+        public override void Update(object newVersion, DbContext context)
         {
-            var item = newVersion as OrderBookForSqlDb;
-            if (item == null)
-                return false;
+            if (!(newVersion is OrderBookForSqlDb item))
+                return;
 
             bool changed = BestPrice != item.BestPrice
                 || Timestamp != item.Timestamp
@@ -50,7 +50,8 @@ namespace Lykke.Job.OrderbooksBridge.Sql.Models
             Timestamp = item.Timestamp;
             IsBuy = item.IsBuy;
             AssetPair = item.AssetPair;
-            return changed;
+            if (changed)
+                context?.Update(this);
         }
     }
 }
