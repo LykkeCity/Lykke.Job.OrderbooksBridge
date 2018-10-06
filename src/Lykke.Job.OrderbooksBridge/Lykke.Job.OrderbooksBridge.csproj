@@ -17,7 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lykke.Common.ApiLibrary" Version="1.10.2" />
-    <PackageReference Include="Lykke.Logs" Version="6.0.1" />
+    <PackageReference Include="Lykke.Logs" Version="6.1.0" />
     <PackageReference Include="Lykke.MonitoringServiceApiCaller" Version="1.7.0" />
     <PackageReference Include="Lykke.RabbitMqBroker" Version="7.5.0" />
     <PackageReference Include="Lykke.Sdk" Version="5.3.1" />
