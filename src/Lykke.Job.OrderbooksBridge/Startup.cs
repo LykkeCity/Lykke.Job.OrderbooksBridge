@@ -87,7 +87,7 @@ namespace Lykke.Job.OrderbooksBridge
                         {
                             options.MinLogLevel = LogLevel.Warning;
                             options.SpamGuard.DisableGuarding();
-                            options.IncludeHealthNotifications();
+                            //options.IncludeHealthNotifications();
                         });
                     });
 
