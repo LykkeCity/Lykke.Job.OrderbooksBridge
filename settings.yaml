@@ -4,6 +4,12 @@ OrderbooksBridgeJob:
       settings-key: LogsConnString
       types:
         - AzureTableStorage
+    FailureBlobStorage:
+      settings-key: OrderbooksBridgeJob-FailureBlobStorage
+      types:
+        - AzureTableStorage
+    SqlDbConnectionString:
+      settings-key: OrderbooksBridgeJob-SqlDbConnectionString
   Rabbit:
     ConnectionString:
       settings-key: ConnectionString
@@ -11,6 +17,16 @@ OrderbooksBridgeJob:
         - RabbitMq
     ExchangeName:
       settings-key: ExchangeName
+  MaxBatchCount:
+    settings-key: OrderbooksBridgeJob-MaxBatchCount
+  BatchPeriod:
+    settings-key: OrderbooksBridgeJob-BatchPeriod
+  BlobStorageCheckPeriod:
+    settings-key: OrderbooksBridgeJob-BlobStorageCheckPeriod
+  WarningPeriod:
+    settings-key: OrderbooksBridgeJob-WarningPeriod
+  WarningSqlTableSizeInGigabytes:
+    settings-key: OrderbooksBridgeJob-WarningSqlTableSizeInGigabytes
 SlackNotifications:
     AzureQueue:
         ConnectionString:
