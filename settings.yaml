@@ -1,7 +1,7 @@
 OrderbooksBridgeJob:
   Db:
     LogsConnString:
-      settings-key: LogsConnString
+      settings-key: OrderbooksBridgeJob-LogsConnString
       types:
         - AzureTableStorage
     FailureBlobStorage:
@@ -12,11 +12,11 @@ OrderbooksBridgeJob:
       settings-key: OrderbooksBridgeJob-SqlDbConnectionString
   Rabbit:
     ConnectionString:
-      settings-key: ConnectionString
+      settings-key: RabbitSpotPricesConnString
       types:
         - RabbitMq
     ExchangeName:
-      settings-key: ExchangeName
+      settings-key: OrderbooksBridgeJob-ExchangeName
   MaxBatchCount:
     settings-key: OrderbooksBridgeJob-MaxBatchCount
   BatchPeriod:
